@@ -1,0 +1,18 @@
+{
+    "contributions": [
+        {
+            "id": "yaml-renderer",
+            "type": "ms.vss-code-web.content-renderer",
+            "targets": [
+                "ms.vss-code-web.content-renderer-collection"
+            ],
+            "properties": {
+                "name": "Yaml Renderer",
+                "uri": "dist/YamlRenderer/YamlRenderer.html",
+                "fileExtensions": [
+                    "yml"
+                ]                
+            }
+        }
+    ]
+}

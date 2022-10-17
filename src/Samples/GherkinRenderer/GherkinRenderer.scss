@@ -1,6 +1,16 @@
 @import "node_modules/azure-devops-ui/Core/_platformCommon.scss";
+
 #root {
     height: 100%;
     width: 100%;
     display: flex;
+}
+
+span.keyword {    
+    font-weight: bolder;
+    margin-right: 2px;
+}
+
+span.placeholder {
+    font-weight: bolder;    
 }

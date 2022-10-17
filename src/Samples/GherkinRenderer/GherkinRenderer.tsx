@@ -1,22 +1,25 @@
+import "./GherkinRenderer.scss";
+
 import * as React from "react";
 import * as SDK from "azure-devops-extension-sdk";
-
+import { GherkinDocument } from "@cucumber/messages";
 import { Header } from "azure-devops-ui/Header";
 import { Page } from "azure-devops-ui/Page";
 
 import { showRootComponent } from "../../Common";
+import { readGherkin } from "./readers/gherkinReader";
+import { Feature } from "./components/Feature";
 
-class GherkinRendererContent extends React.Component<{rawContent:string}, {}> {    
+class GherkinRendererContent extends React.Component<{rawContent:GherkinDocument}, {}> {    
     public componentDidMount() {               
         SDK.notifyLoadSucceeded();
     }
 
     public render(): JSX.Element {        
         return (
-            <Page className="sample-hub flex-grow">
-                <Header title="Gherkin Renderer" />
+            <Page className="sample-hub flex-grow">                
                 <div className="page-content">
-                    <p>{this.props.rawContent}</p>
+                    <Feature parsedFeature={this.props.rawContent}/>
                 </div>
             </Page>
         );
@@ -28,10 +31,9 @@ const gherkinRenderer = (function () {
     return {
         renderContent: async function (rawContent: any, options: any) {
 
-            try {
-                console.log("Gherkin Renderer initialising", rawContent);                
-                showRootComponent(<GherkinRendererContent rawContent={rawContent}/>);
-                //const gherkin = await readGherkin(rawContent);
+            try {                
+                const gherkin = await readGherkin(rawContent);                
+                showRootComponent(<GherkinRendererContent rawContent={gherkin}/>);
             }
             catch (err) {
                 console.log(err);

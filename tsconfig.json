@@ -15,7 +15,9 @@
           "es5",
           "es6",
           "dom",
-          "es2015.promise"
+          "es2015.promise",
+          "dom.iterable",
+          "esnext"
         ],
         "types": [
             "react",
