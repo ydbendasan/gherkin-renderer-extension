@@ -1,12 +1,16 @@
 {
     "manifestVersion": 1,
-    "id": "samples",
-    "publisher": "dogabendasan",
-    "version": "1.0.452",
-    "name": "Extension Sample",
-    "description": "Azure DevOps extension sample",
+    "id": "gherkin-renderer",
+    "publisher": "DogaBendasan",
+    "version": "0.0.10",
+    "name": "Gherkin Renderer",
+    "public":true,
+    "description": "Visual Studio Services extension to preview gherkin files in browser",
     "categories": [
-        "Azure Pipelines"
+        "Azure Repos"
+    ],
+    "galleryFlags": [
+        "Private"
     ],
     "targets": [
         {
@@ -14,7 +18,7 @@
         }
     ],
     "icons": {
-        "default": "logo.png"
+        "default": "default_icon_128.png"
     },
     "content": {
         "details": {
