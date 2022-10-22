@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Examples, Scenario as cucumberScenario } from "@cucumber/messages";
+import { Background, Examples, Scenario as cucumberScenario } from "@cucumber/messages";
 import { Description } from "./Description";
 import { StepDefinition } from "./StepDefinition";
 import { ExampleList } from "./ExampleList";
@@ -11,6 +11,7 @@ import { ArrayItemProvider } from "azure-devops-ui/Utilities/Provider";
 
 export interface ScenarioProps {
   scenario: cucumberScenario | undefined;
+  background: Background|undefined;
 }
 
 let placeHolders: OutlineValues | undefined;
@@ -52,6 +53,25 @@ const renderRow = (
   );
 };
 
+const renderSteps=(scenario: cucumberScenario|Background|undefined, selection:ListSelection, currentExample:any): JSX.Element =>{
+  console.log(scenario);
+  if(!scenario){
+    return <></>;
+  }
+
+  return (
+    <>
+    <Description value={scenario.description?.trim()} />
+    <ScrollableList
+      itemProvider={new ArrayItemProvider(scenario.steps as Array<Step>)}
+      renderRow={(index: number, item: Step, details: IListItemDetails<Step>, key?: string,) => renderRow(index, item, details, key, currentExample)}
+      selection={selection}
+      width="100%"
+    />
+    </>
+  );
+}
+
 
 export const Scenario: React.FC<ScenarioProps> = (props): JSX.Element => {
   placeHolders = getVariables(props?.scenario?.examples);  
@@ -62,27 +82,24 @@ export const Scenario: React.FC<ScenarioProps> = (props): JSX.Element => {
     setCurrentExample(data);    
   };
 
-  if (!props?.scenario) {
+  const scenario = props?.background||props?.scenario;
+
+  const examples =props.scenario?.examples;
+  if (!scenario) {
     return <></>;
   }
-
 
   return (
 
     <Card className="flex-grow"
-      key={props.scenario.id}
-      titleProps={{ text: `Scenario: ${props.scenario.name}` }}
+      key={scenario.id}
+      titleProps={{ text: `${scenario.keyword}: ${scenario.name}` }}
     >
-      <div className="flex-column">
-        <Description value={props.scenario.description?.trim()} />
-        <ScrollableList
-          itemProvider={new ArrayItemProvider(props.scenario.steps as Array<Step>)}
-          renderRow={(index: number, item: Step, details: IListItemDetails<Step>, key?: string,) => renderRow(index, item, details, key, currentExample)}
-          selection={selection}
-          width="100%"
-        />
+      <div className="flex-column">        
+        {renderSteps(scenario, selection, currentExample)}
+
         <ExampleList
-          examples={props.scenario.examples}
+          examples={examples}
           onSelectionChanged={setCurrent}
         />
       </div>

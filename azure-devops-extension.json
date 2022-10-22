@@ -1,10 +1,10 @@
 {
     "manifestVersion": 1,
-    "id": "gherkin-renderer",
+    "id": "gherkin-renderer-dev",
     "publisher": "DogaBendasan",
-    "version": "0.0.10",
-    "name": "Gherkin Renderer",
-    "public":true,
+    "version": "0.0.18",
+    "name": "Gherkin Renderer-Dev",
+    "public":false,
     "description": "Visual Studio Services extension to preview gherkin files in browser",
     "categories": [
         "Azure Repos"

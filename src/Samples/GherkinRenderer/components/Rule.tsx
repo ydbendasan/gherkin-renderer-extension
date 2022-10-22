@@ -16,12 +16,12 @@ export const Rule: React.FC<FeatureChild> = (fc): JSX.Element => {
           <Description value={fc.rule.description} />
           <div className="ruleChildren">
             {fc.rule.children.map((scenario)=>{
-                return <Scenario scenario={scenario.scenario} key={scenario.scenario?.id} />
+                return <Scenario scenario={scenario.scenario} background={fc.background} key={scenario.scenario?.id} />
             })}
           </div>
         </div>
       )}
-      <Scenario scenario={fc.scenario} key={fc.scenario?.id}/>
+      <Scenario scenario={fc.scenario} background={fc.background} key={fc.scenario?.id}/>
     </>
   );
 };
