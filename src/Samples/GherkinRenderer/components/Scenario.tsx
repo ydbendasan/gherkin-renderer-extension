@@ -53,8 +53,7 @@ const renderRow = (
   );
 };
 
-const renderSteps = (scenario: cucumberScenario|undefined, background: Background | undefined, selection: ListSelection, currentExample: any): JSX.Element => {
-  console.log(scenario);
+const renderSteps = (scenario: cucumberScenario|undefined, background: Background | undefined, currentExample: any): JSX.Element => {
   if (!scenario) {
     return <></>;
   }
@@ -68,7 +67,6 @@ const renderSteps = (scenario: cucumberScenario|undefined, background: Backgroun
       <ScrollableList
         itemProvider={new ArrayItemProvider(steps.concat(scenario.steps) as Array<Step>)}
         renderRow={(index: number, item: Step, details: IListItemDetails<Step>, key?: string,) => renderRow(index, item, details, key, currentExample)}
-        selection={selection}
         width="100%"
       />
     </>
@@ -100,7 +98,7 @@ export const Scenario: React.FC<ScenarioProps> = (props): JSX.Element => {
       titleProps={{ text: `${props.scenario.keyword}: ${props.scenario.name}` }}
     >
       <div className="flex-column">
-        {renderSteps(props.scenario, props.background, selection, currentExample)}
+        {renderSteps(props.scenario, props.background, currentExample)}
 
         <ExampleList
           examples={examples}

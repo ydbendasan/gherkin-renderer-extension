@@ -2,7 +2,7 @@ import React from "react";
 import { Examples } from "@cucumber/messages";
 import { Description } from "./Description";
 import { ArrayItemProvider } from "azure-devops-ui/Utilities/Provider";
-import { renderSimpleCell, Table } from "azure-devops-ui/Table";
+import { ColumnSelect, renderSimpleCell, Table } from "azure-devops-ui/Table";
 import { ObservableValue } from "azure-devops-ui/Core/Observable";
 import { ListSelection } from "azure-devops-ui/List";
 import { Header, TitleSize } from "azure-devops-ui/Header";
@@ -12,7 +12,7 @@ export interface ExamplesProps {
   onSelectionChanged: (data: any) => void;
 }
 
-const getExampleColumns = (ex: Examples) => {
+const getExampleColumns = (ex: Examples):(ColumnSelect|any)[] => {
   if (!ex.tableHeader) {
     return [];
   }
@@ -26,7 +26,7 @@ const getExampleColumns = (ex: Examples) => {
       width: new ObservableValue(-40),
     };
   });
-  return columns;
+  return [new ColumnSelect(), ...columns];
 };
 
 const getExampleItems = (columns: any, ex: Examples): any[] => {
