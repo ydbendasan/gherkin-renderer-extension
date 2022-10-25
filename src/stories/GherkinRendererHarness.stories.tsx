@@ -56,6 +56,40 @@ MultiScenario.args = {
   `
 };
 
+export const MultiScenarioWithBackground = Template.bind({});
+MultiScenarioWithBackground.args = {
+  gherkin: `
+  Feature: Multi Scenario
+  
+  Background: I have a library with books
+    Given I have a library
+    And I have books in the library
+  
+  Scenario: First Scenario
+      This is the first scenario description
+  
+      Given I have a scenario
+      When I view the Preview
+      Then I should see a card
+  
+  Scenario: Second Scenario
+      This is the second scenario description
+  
+      Given I have a second Scenario
+      When I view the Preview
+      Then I should see a second Scenario card
+  
+  Scenario: Third Scenario without description    
+  
+      Given I have a third Scenario
+      And there is no description
+      When I view the Preview
+      Then I should see a third Scenario card    
+      And I shouldn't see a description
+
+  `
+};
+
 export const ScenarioOutline = Template.bind({});
 ScenarioOutline.args = {
   gherkin: `
