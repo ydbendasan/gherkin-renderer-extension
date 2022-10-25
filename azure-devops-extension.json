@@ -33,6 +33,10 @@
         {
             "path": "dist",
             "addressable": true
+        },
+        {
+            "path": "screenshots",
+            "addressable": true
         }
     ]
 }
