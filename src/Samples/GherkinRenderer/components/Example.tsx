@@ -4,15 +4,16 @@ import { Description } from "./Description";
 import { ArrayItemProvider } from "azure-devops-ui/Utilities/Provider";
 import { ColumnSelect, renderSimpleCell, Table } from "azure-devops-ui/Table";
 import { ObservableValue } from "azure-devops-ui/Core/Observable";
-import { ListSelection } from "azure-devops-ui/List";
+import { IListSelection, ListSelection } from "azure-devops-ui/List";
 import { Header, TitleSize } from "azure-devops-ui/Header";
 
 export interface ExamplesProps {
   example: Examples;
   onSelectionChanged: (data: any) => void;
+  selection: IListSelection;
 }
 
-const getExampleColumns = (ex: Examples):(ColumnSelect|any)[] => {
+const getExampleColumns = (ex: Examples): (ColumnSelect | any)[] => {
   if (!ex.tableHeader) {
     return [];
   }
@@ -26,7 +27,7 @@ const getExampleColumns = (ex: Examples):(ColumnSelect|any)[] => {
       width: new ObservableValue(-40),
     };
   });
-  return [new ColumnSelect(), ...columns];
+  return columns;
 };
 
 const getExampleItems = (columns: any, ex: Examples): any[] => {
@@ -48,15 +49,10 @@ export const Example: React.FC<ExamplesProps> = (props): JSX.Element => {
   if (!props?.example) {
     return <></>;
   }
-
-  const selection = new ListSelection({
-    selectOnFocus: true,
-    multiSelect: false
-  });
   const ex = props.example;
 
   const columns = getExampleColumns(ex);
-  const items = new ArrayItemProvider(getExampleItems(columns, ex));
+  const items = new ArrayItemProvider(getExampleItems(columns, ex));  
 
   return (
     <div className="flex-column">
@@ -67,9 +63,12 @@ export const Example: React.FC<ExamplesProps> = (props): JSX.Element => {
         columns={columns}
         containerClassName="h-scroll-auto"
         itemProvider={items}
-        selection={selection}
+        selection={props.selection}
         role="table"
-        onSelect={(event, data) => props.onSelectionChanged && props.onSelectionChanged(data.data)}        
+        onSelect={(event, data) => {          
+          props.onSelectionChanged && props.onSelectionChanged(data.data);
+        }}
+
       />
     </div>
   );

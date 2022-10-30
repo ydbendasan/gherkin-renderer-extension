@@ -53,13 +53,13 @@ const renderRow = (
   );
 };
 
-const renderSteps = (scenario: cucumberScenario|undefined, background: Background | undefined, currentExample: any): JSX.Element => {
+const renderSteps = (scenario: cucumberScenario | undefined, background: Background | undefined, currentExample: any): JSX.Element => {
   if (!scenario) {
     return <></>;
   }
 
 
-  const steps:Step[] = background?.steps?.map(s=>s)||[];
+  const steps: Step[] = background?.steps?.map(s => s) || [];
 
   return (
     <>
@@ -76,18 +76,22 @@ const renderSteps = (scenario: cucumberScenario|undefined, background: Backgroun
 
 export const Scenario: React.FC<ScenarioProps> = (props): JSX.Element => {
   placeHolders = getVariables(props?.scenario?.examples);
-  const [currentExample, setCurrentExample] = useState();
 
-  const selection = new ListSelection(true);
+  const examples = props.scenario?.examples;
+  const [selections, setSelections] = useState(
+    examples?.map(() => new ListSelection({
+      multiSelect: false,
+      selectOnFocus: true,
+    })));
+
+  const [currentExample, setCurrentExample] = useState();
   const setCurrent = (data: any) => {
+    console.log(data);
     setCurrentExample(data);
   };
 
-  console.log(props);
-  
-  const examples = props.scenario?.examples;
-  
-    if (!props.scenario) {
+
+  if (!props.scenario) {
     return <></>;
   }
 
@@ -102,6 +106,7 @@ export const Scenario: React.FC<ScenarioProps> = (props): JSX.Element => {
 
         <ExampleList
           examples={examples}
+          selections={selections!}
           onSelectionChanged={setCurrent}
         />
       </div>
