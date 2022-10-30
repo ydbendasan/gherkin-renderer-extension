@@ -33,8 +33,8 @@ export interface StepProps {
 export const StepDefinition: React.FC<StepProps> = (props): JSX.Element => {
   return (
     <>
-      <span className="keyword">{props.step.keyword}</span>
-      {decomposeText(props.step.text, props.placeHolders, props.currentExample)}
+      <span className="keyword">{props.step.keyword} </span> 
+       {decomposeText(props.step.text, props.placeHolders, props.currentExample)}
     </>
   );
 };

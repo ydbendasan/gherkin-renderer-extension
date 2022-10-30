@@ -32,7 +32,7 @@ const gherkinRenderer = (function () {
         renderContent: async function (rawContent: any, options: any) {
 
             try {                
-                const gherkin = await readGherkin(rawContent);
+                const gherkin = readGherkin(rawContent);
                 console.log(gherkin);
                 showRootComponent(<GherkinRendererContent rawContent={gherkin}/>);
             }

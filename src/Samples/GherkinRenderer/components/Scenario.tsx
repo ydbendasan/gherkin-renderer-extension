@@ -11,7 +11,7 @@ import { ArrayItemProvider } from "azure-devops-ui/Utilities/Provider";
 
 export interface ScenarioProps {
   scenario: cucumberScenario | undefined;
-  background: Background|undefined;
+  background: Background | undefined;
 }
 
 let placeHolders: OutlineValues | undefined;
@@ -37,12 +37,12 @@ const renderRow = (
   index: number,
   item: Step,
   details: IListItemDetails<Step>,
-  key?: string,  
+  key?: string,
   currentExample: any = {}
 ): JSX.Element => {
   const stepProps = {
     step: item,
-    placeHolders,    
+    placeHolders,
     currentExample
   };
 
@@ -53,53 +53,60 @@ const renderRow = (
   );
 };
 
-const renderSteps=(scenario: cucumberScenario|Background|undefined, selection:ListSelection, currentExample:any): JSX.Element =>{
-  console.log(scenario);
-  if(!scenario){
+const renderSteps = (scenario: cucumberScenario | undefined, background: Background | undefined, currentExample: any): JSX.Element => {
+  if (!scenario) {
     return <></>;
   }
 
+
+  const steps: Step[] = background?.steps?.map(s => s) || [];
+
   return (
     <>
-    <Description value={scenario.description?.trim()} />
-    <ScrollableList
-      itemProvider={new ArrayItemProvider(scenario.steps as Array<Step>)}
-      renderRow={(index: number, item: Step, details: IListItemDetails<Step>, key?: string,) => renderRow(index, item, details, key, currentExample)}
-      selection={selection}
-      width="100%"
-    />
+      <Description value={scenario.description?.trim()} />
+      <ScrollableList
+        itemProvider={new ArrayItemProvider(steps.concat(scenario.steps) as Array<Step>)}
+        renderRow={(index: number, item: Step, details: IListItemDetails<Step>, key?: string,) => renderRow(index, item, details, key, currentExample)}
+        width="100%"
+      />
     </>
   );
 }
 
 
 export const Scenario: React.FC<ScenarioProps> = (props): JSX.Element => {
-  placeHolders = getVariables(props?.scenario?.examples);  
-  const [currentExample, setCurrentExample] = useState();
+  placeHolders = getVariables(props?.scenario?.examples);
 
-  const selection = new ListSelection(true);
+  const examples = props.scenario?.examples;
+  const [selections, setSelections] = useState(
+    examples?.map(() => new ListSelection({
+      multiSelect: false,
+      selectOnFocus: true,
+    })));
+
+  const [currentExample, setCurrentExample] = useState();
   const setCurrent = (data: any) => {
-    setCurrentExample(data);    
+    console.log(data);
+    setCurrentExample(data);
   };
 
-  const scenario = props?.background||props?.scenario;
 
-  const examples =props.scenario?.examples;
-  if (!scenario) {
+  if (!props.scenario) {
     return <></>;
   }
 
   return (
 
     <Card className="flex-grow"
-      key={scenario.id}
-      titleProps={{ text: `${scenario.keyword}: ${scenario.name}` }}
+      key={props.scenario.id}
+      titleProps={{ text: `${props.scenario.keyword}: ${props.scenario.name}` }}
     >
-      <div className="flex-column">        
-        {renderSteps(scenario, selection, currentExample)}
+      <div className="flex-column">
+        {renderSteps(props.scenario, props.background, currentExample)}
 
         <ExampleList
           examples={examples}
+          selections={selections!}
           onSelectionChanged={setCurrent}
         />
       </div>
