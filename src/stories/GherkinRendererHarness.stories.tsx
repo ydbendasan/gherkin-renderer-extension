@@ -25,6 +25,25 @@ SimpleScenario.args = {
   `
 };
 
+export const SimpleScenarioWithTable = Template.bind({});
+SimpleScenarioWithTable.args = {
+  gherkin: `
+  Feature: Single Scenario Feature
+
+  Scenario: I should see a card
+  This scenario describes a single card view
+  
+  Given I have a single scenario
+    | title | description     | price |
+    | Jingo | Discworld Novel | 12.99 |
+  When I view the Preview
+  Then I should see a single card
+  And I should see the table rendered for the Given step    
+  | title | description     | price |
+  | Jingo | Discworld Novel | 12.99 |
+`
+};
+
 
 export const MultiScenario = Template.bind({});
 MultiScenario.args = {
