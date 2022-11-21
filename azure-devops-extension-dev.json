@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "gherkin-renderer-dev",
     "publisher": "DogaBendasan",
-    "version": "0.0.32",
+    "version": "0.0.34",
     "name": "Gherkin Renderer-dev",
     "public":false,
     "description": "Visual Studio Services extension to preview gherkin files in browser",
