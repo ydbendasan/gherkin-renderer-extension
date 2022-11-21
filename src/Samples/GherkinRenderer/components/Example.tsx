@@ -2,48 +2,16 @@ import React from "react";
 import { Examples } from "@cucumber/messages";
 import { Description } from "./Description";
 import { ArrayItemProvider } from "azure-devops-ui/Utilities/Provider";
-import { ColumnSelect, renderSimpleCell, Table } from "azure-devops-ui/Table";
-import { ObservableValue } from "azure-devops-ui/Core/Observable";
-import { IListSelection, ListSelection } from "azure-devops-ui/List";
+import { Table } from "azure-devops-ui/Table";
+import { IListSelection } from "azure-devops-ui/List";
 import { Header, TitleSize } from "azure-devops-ui/Header";
+import { getExampleColumns, getExampleItems } from "../helpers/tableHelpers";
 
 export interface ExamplesProps {
   example: Examples;
   onSelectionChanged: (data: any) => void;
   selection: IListSelection;
 }
-
-const getExampleColumns = (ex: Examples): (ColumnSelect | any)[] => {
-  if (!ex.tableHeader) {
-    return [];
-  }
-
-  const columns = ex.tableHeader.cells.map((th) => {
-    return {
-      id: th.value,
-      name: th.value,
-      renderCell: renderSimpleCell,
-      readonly: true,
-      width: new ObservableValue(-40),
-    };
-  });
-  return columns;
-};
-
-const getExampleItems = (columns: any, ex: Examples): any[] => {
-  return ex.tableBody.map((tr) => {
-    let row: { [key: string]: any } = {};
-    row.key = tr.id;
-    tr.cells.forEach((tc, i) => {
-      const fieldName = columns[i].name;
-      if (fieldName) {
-        row[fieldName] = tc.value;
-      }
-    });
-    return row;
-  });
-};
-
 
 export const Example: React.FC<ExamplesProps> = (props): JSX.Element => {
   if (!props?.example) {
