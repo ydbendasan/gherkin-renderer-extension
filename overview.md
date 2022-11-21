@@ -1,15 +1,14 @@
-This extension renders the gherkin files with syntax highlighting and interactive view for Scenario Outlines with Examples.
 
-It supports 
+This extension renders previews for gherkin files with .feature extensions.
 
-## Single Scenarios
-![singleScenario](screenshots/contentSimpleScenario.png)
-![singleScenarioPreview](screenshots/previewSimpleScenario.png)
+## Supported Features
+* Previews in Pull Requests
+* Previews of files in the Repo
+* Single Scenarios
+* Multi Scenarios 
+* Backgrounds
+* Scenario Outlines with Example Previews when an example is selected
+* Azure DevOps Themes(Dark Mode, Light Mode, etc.)
 
-## Multi Scenarios
-![multiScenario](screenshots/contentMultiScenario.png)
-![multiScenarioPreview](screenshots/previewMultiScenario.png)
-
-## Scenario Outlines
-![Scenario Outline](screenshots/contentScenarioOutline.png)
-![Scenario Outline Preview](screenshots/previewScenarioOutline.png)
+## Demo
+![demo](screenshots/gherkinrendererdemo.gif)
