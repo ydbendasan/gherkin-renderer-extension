@@ -86,7 +86,7 @@ export const Scenario: React.FC<ScenarioProps> = (props): JSX.Element => {
 
   const [currentExample, setCurrentExample] = useState();
   const setCurrent = (data: any) => {
-    console.log(data);
+    //console.log(data);
     setCurrentExample(data);
   };
 

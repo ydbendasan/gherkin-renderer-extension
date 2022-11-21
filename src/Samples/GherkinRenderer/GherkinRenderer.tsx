@@ -33,11 +33,11 @@ const gherkinRenderer = (function () {
 
             try {                
                 const gherkin = readGherkin(rawContent);
-                console.log(gherkin);
+                //console.log(gherkin);
                 showRootComponent(<GherkinRendererContent rawContent={gherkin}/>);
             }
             catch (err) {
-                console.log(err);
+                //console.log(err);
             }
         }
     }
